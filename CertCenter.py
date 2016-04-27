@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = "1.13.3"
+__version__ = "1.13.4"
 
 import logging
 import urllib
@@ -15,7 +15,7 @@ __all__ = ['CertAPI']
 class CertAPI(object):
 
 	__authorization = {'Bearer': None }
-	__ob = 'json'
+	__ob = 'dict'
 	API_URL = 'https://api.certcenter.com/rest/v1'
 
 	__MethodInfo = {
