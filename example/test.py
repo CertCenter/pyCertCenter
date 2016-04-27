@@ -1,27 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-########################################################
-#
-# Usage:
-#
-#	RAW JSON
-# 	./test.py
-#
-#	PRETTY PRINT
-# 	./test.py | python -mjson.tool
-#
-########################################################
+import CertCenter
 
-from CertCenter import CertAPI
-
-""" Make sure you already provided proper authentication information
-	to CertCenter.py's authorization attribute.
-	--
-	OutputBehavior can be 'json' or 'dict'. Consider to use 'dict'
-	if you want to work with the output.
-"""
-api = CertAPI(OutputBehavior='json')
+api = CertCenter.CertAPI(OutputBehavior='json')
+api.setBearer('XYZXYZXYZ.oauth2.certcenter.com')
 
 """ Fetching current account limitations
 """

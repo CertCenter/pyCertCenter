@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from CertCenter import CertAPI
+import CertCenter
 
-""" Make sure you already provided proper authentication information
-	to CertCenter.py's authorization attribute.
-	--
-	OutputBehavior can be 'json' or 'dict'. Consider to use 'dict'
-	if you want to work with the output.
-"""
-api = CertAPI(OutputBehavior='dict')
+api = CertCenter.CertAPI(OutputBehavior='json')
+api.setBearer('XYZXYZXYZ.oauth2.certcenter.com')
 
 """ First of all, check the common name against the CAs phishing blacklist.
 """
