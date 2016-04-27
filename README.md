@@ -12,7 +12,7 @@ If pip is not installed on your computer, you <a href="https://pip.pypa.io/en/st
 
 # Usage
 
-```
+```python
 # Import the module
 import CertCenter
 
