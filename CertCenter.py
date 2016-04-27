@@ -41,7 +41,7 @@ class CertAPI(object):
 		'ValidateName':			{'http_method': 'POST'}
 	}
 
-	def __init__(self,OutputBehavior='json'):
+	def __init__(self,OutputBehavior='dict'):
 		self.__ob = OutputBehavior
 
 	def setBearer(self, Bearer):
