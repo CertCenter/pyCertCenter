@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = "1.13.4"
+__version__ = "1.13.5"
 
 import logging
 import urllib
@@ -27,7 +27,14 @@ class CertAPI(object):
 		'ValidateCSR':			{'http_method': 'POST'},
 		'TestOrder':			{'http_method': 'POST'},
 		'Order':				{'http_method': 'POST'},
+		'VulnerabiltyAssessment': {'http_method': 'POST'},
+		'AddUser':				{'http_method': 'POST'},
+		'GetUser':				{'http_method': 'GET', 'path_parameter': 'UserNameOrUserId'},
+		'UpdateUser':			{'http_method': 'POST', 'path_parameter': 'UserNameOrUserId'},
+		'DeleteUser':			{'http_method': 'DELETE', 'path_parameter': 'UserNameOrUserId'},
 		'CancelOrder':			{'http_method': 'DELETE', 'path_parameter': 'CertCenterOrderID'},
+		'GetCustomer':			{'http_method': 'GET', 'path_parameter': 'UserNameOrUserId'},
+		'GetCustomers':			{'http_method': 'GET'},
 		'Revoke':				{'http_method': 'DELETE', 'path_parameter': 'CertCenterOrderID'},
 		'UserAgreement':		{'http_method': 'GET'},
 		'ApproverList':			{'http_method': 'GET'},
@@ -38,6 +45,7 @@ class CertAPI(object):
 		'UpdateApproverEmail':	{'http_method': 'PUT', 'path_parameter': 'CertCenterOrderID', 'query_parameter': 'ApproverEmail'},
 		'ResendApproverEmail':	{'http_method': 'POST', 'path_parameter': 'CertCenterOrderID'},
 		'DNSData':				{'http_method': 'POST'},
+		'FileData':				{'http_method': 'POST'},
 		'ValidateName':			{'http_method': 'POST'}
 	}
 
@@ -60,9 +68,9 @@ class CertAPI(object):
 		if not isinstance(data,dict): data = {}
 
 		_method = method
-		if _method.startswith("Get"):
+		if _method.startswith("Get") or _method.startswith("Add"):
 			_method = _method[3:]
-		elif _method.startswith("Update") or _method.startswith("Resend") or _method.startswith("Cancel"):
+		elif _method.startswith("Update") or _method.startswith("Delete") or _method.startswith("Resend") or _method.startswith("Cancel"):
 			_method = _method[6:]
 
 		if info.has_key('path_parameter'):

@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import CertCenter
 
-api = CertCenter.CertAPI(OutputBehavior='json')
+import sys
+path = "/home/devel/pyCertCenter"
+if path not in sys.path: sys.path.append(path)
+
+import CertCenter1 as CertCenter
+
+api = CertCenter.CertAPI(OutputBehavior='dict')
 api.setBearer('XYZXYZXYZ.oauth2.certcenter.com')
 
 """ First of all, check the common name against the CAs phishing blacklist.
 """
-request = { 'CommonName': 'dvtest.alwaysonssl.com' }
+request = { 'CommonName': 'testdv.alwaysonssl.com' }
+DVAuthMethod = 'FILE' # Possible values: DNS, FILE
 ValidateNameResult = api.ValidateName(req=request)
 print repr(ValidateNameResult)
 #Example Result: {u'IsQualified': True, u'success': True}
@@ -16,52 +22,61 @@ if not ValidateNameResult['IsQualified']:
 	print "CommonName cannot be used for AlwaysOnSSL because it's blacklisted.\n"
 else:
 	""" Now let's get the information we need in order to provision
-		the DNS zone with the proper CNAME record.
+		the authorization data (DNS CNAME record or File).
 	"""
 
 	CSR = """-----BEGIN CERTIFICATE REQUEST-----
-MIIC1zCCAb8CAQAwaTEfMB0GA1UEAwwWZHZ0ZXN0LmFsd2F5c29uc3NsLmNvbTEL
-MAkGA1UEBhMCREUxDzANBgNVBAgMBkhlc3NlbjEQMA4GA1UEBwwHR2llc3NlbjEW
-MBQGA1UECgwNTm90IEF2YWlsYWJsZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
-AQoCggEBALcmAP8FpqcJp2OXrDUp4AEY1VHQu9UtFOu2tPKZ6VvkTfRe2Jbk011V
-aqn5ioDPhFcGB1ZfzEo8Umbn/F9Da6XoRdJv/gAr+0EWGkCRkLdtn8mr1DMZaBnF
-b2YUxGIjj4BfBPMada9Wt8VuIjpSgafYHhLJohC7c2icuyf/bqfxtLJslpepu5iZ
-QSdc5TqCsAWhjoXEcLoa/07v/VbLLpjmViOkrAd8h2nuRg2AoKydU+SYC2+EDImz
-kxTcGIjb6GVl6QL/XVwdz602bjzyzFyZdexPKDfw8PaYuJkifxjbfzAKSxhAgd4k
-PgJbY0fq0OV6LU1yAGkromTBu202eysCAwEAAaApMCcGCSqGSIb3DQEJDjEaMBgw
-CwYDVR0PBAQDAgXgMAkGA1UdEwQCMAAwDQYJKoZIhvcNAQELBQADggEBAJO3dM4y
-ngKsjylNJjCFopntboXZH/Jwu5Tjm6icwc4ULhd2F5Yzrq2RvZ9TAUCmp+WHQwwr
-vETPgZB8/SXtQYn2DBY8DUETW7jF/AghkPcyNuOzbpmxI0uf6Bp6uju4hzovcbOq
-m4rD+jl0JGfQCbnQyJ0oH1KxNhMYRzush72129hNshl1Z1KVV2nu/pQxULg9N5k6
-GVCfacmDgOOCMpCI5nsif/wGR5NjTlEqQ4/MKkBzgNxpNACl09g8U9BEkcBFokk0
-7XDEKxP9TmH2TkWYmZ8RWRBihijQmSvA7RoJbGdqryRXg9msV1AUTxHrTyxneV9/
-Qfhjn38lALqDF60=
+MIICsTCCAZkCAQAwbDELMAkGA1UEBhMCREUxDzANBgNVBAgTBkhlc3NlbjEQMA4G
+A1UEBxMHR2llc3NlbjEWMBQGA1UEChMNQ2VyEEnlbnRlciBBRzEiMCAGA1UEAxMZ
+ZGV2ZWxvcGVycy5jZXJ0Y2VudGVyLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBAKt64cS+fjdKFEz5dWLKZAYaWM3HQJ4ewNSaM3U00gUYOJbxOnKp
+uzjrR8PHAVssFtgjCMqfv7UeAASMwP7o5KdRctxsJQuxQqtRXimclZ3zUWUsDyN8
+vX1q+QmC3zxuFnlrfFQrLMAIvwHnJHmzChQQRCQ+niFr3kTlKPuCKaUVZ4/V7Cfk
+gZebooBhBGJ3C4ZRNKIkvDaXEdup6MbJ1Zb63dsFfP3hiFXagcmlmTVigc5nSB2k
+OC5QHXEmAW64gaiATtfmgY85QU6XlFSevHk5lvqcbXKfHbhzahZj0q4L2GosVV1Q
+goBm8Yvn+EKqZ6jD2DzSEQQt4VaBoqo7NuMCAwEAAaAAMA0GCSqGSIb3DQEBCwUA
+A4IBAQB0VQCln+/5XywLYsASs+CQa7oYQxAoJbiXQZ8s0zrKGMQhfgtX4Px+odjs
+4PlKcQ5VVsVeyLiHDrusntpCd09D7vcIwGHkrze7tANFFJkWAsd47V17fu4GrZ6X
+weyyiXVypYRIBtk9hjkZopr9t3YEDxeoAx/U0uNl9hl7+dFCnmBlxMPhvqEn1uzu
+omDrNuiOWGULy5Udb2iqOL2U2ILxPFlBBRF2SeBj/F7qf7dHSN+fAazvckTntxSO
+dys7+l3rOykKgT1L22nx3yVFpKROCQs/hKQH18tPfrEoUOQerjTgSczbibw+wnJj
+Tx4K5s4Ks+9vv4wS7zWLdU83BDMD
 -----END CERTIFICATE REQUEST-----"""
 
 	request = {
 		"ProductCode": "AlwaysOnSSL.AlwaysOnSSL",
-		"CSR": CSR,
+		"CSR": CSR
 	}
-	DNSDataResult = api.DNSData(req=request)
-	print repr(DNSDataResult)
-	# Example Result: {u'DNSAuthDetails': {u'PointerType': u'CNAME', u'DNSEntry': u'sadxoi5spfy8axlgu9lpcga55wncn6bo.dvtest.alwaysonssl.com.', u'DNSValue': u's20160322210004.dvtest.alwaysonssl.com.'}, u'success': True}
-	# Create a CNAME entry like this:
-	#	sadxoi5spfy8axlgu9lpcga55wncn6bo.dvtest.alwaysonssl.com. IN CNAME s20160322210004.dvtest.alwaysonssl.com.
 
-	""" The name is qualified, the dns zone has been updated with the
-		proper DNS records. Now we can request the AlwaysOnSSL Certificate.
+	if DVAuthMethod == 'DNS':
+
+		DNSDataResult = api.DNSData(req=request)
+		print repr(DNSDataResult)
+		# Example Result: {u'DNSAuthDetails': {u'PointerType': u'CNAME', u'DNSEntry': u'sadxoi5spfy8axlgu9lpcga55wncn6bo.dvtest.alwaysonssl.com.', u'DNSValue': u's20160322210004.dvtest.alwaysonssl.com.'}, u'success': True}
+		# Create a CNAME entry like this:
+		#	sadxoi5spfy8axlgu9lpcga55wncn6bo.dvtest.alwaysonssl.com. IN CNAME s20160322210004.dvtest.alwaysonssl.com.
+
+	elif DVAuthMethod == 'FILE':
+
+		FileDataResult = api.FileData(req=request)
+		print repr(FileDataResult)
+		# Example Result: {u'FileAuthDetails': {u'FileContents': u'20160817082955250uyhevt9xaauim6pvk4yx5p50su4z2u8atievmbgk3r7gppp', u'FileName': u'http://testdv.alwaysonssl.com/.well-known/pki-validation/fileauth.htm'}, u'success': True}
+		# Create the file /.well-known/pki-validation/fileauth.htm
+		#	and use 20160817082955250uyhevt9xaauim6pvk4yx5p50su4z2u8atievmbgk3r7gppp as the files content
+
+
+	""" Now we can request the AlwaysOnSSL certificate.
 	"""
 	request = {
 		'OrderParameters': {
 			"ProductCode": "AlwaysOnSSL.AlwaysOnSSL",
 			"CSR": CSR,
 			"ValidityPeriod": 180,
+			"DVAuthMethod": DVAuthMethod
 		}
 	}
+
 	OrderResult = api.Order(req=request)
 	print repr(OrderResult)
+
 	# Example Result: {u'Timestamp': u'2016-03-22T14:03:33Z', u'OrderParameters': {u'ProductCode': u'AlwaysOnSSL.AlwaysOnSSL', u'DVAuthMethod': u'DNS', u'PartnerOrderID': u'APIR-3F3PWARU2KCNEQ4OWXEO2Y3H', u'ValidityPeriod': 180, u'CSR': u'YourCSR', u'SignatureHashAlgorithm': u'SHA256-FULL-CHAIN'}, u'CertCenterOrderID': 6260500, u'success': True, u'Fulfillment': {u'Certificate_PKCS7': u'-----BEGIN PKCS #7 SIGNED DATA-----{...}-----END PKCS #7 SIGNED DATA-----', u'Intermediate': u'-----BEGIN CERTIFICATE-----{...}-----END CERTIFICATE-----', u'Certificate': u'-----BEGIN CERTIFICATE-----{...}-----END CERTIFICATE-----\n'}}
-
-
-
-
