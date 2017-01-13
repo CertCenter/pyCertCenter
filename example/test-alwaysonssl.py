@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
-path = "/home/devel/pyCertCenter"
-if path not in sys.path: sys.path.append(path)
-
-import CertCenter1 as CertCenter
+import CertCenter
 
 api = CertCenter.CertAPI(OutputBehavior='dict')
 api.setBearer('XYZXYZXYZ.oauth2.certcenter.com')
