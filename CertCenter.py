@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = "1.13.5"
+__version__ = "1.13.6"
 
 import logging
 import urllib
@@ -19,34 +19,35 @@ class CertAPI(object):
 	API_URL = 'https://api.certcenter.com/rest/v1'
 
 	__MethodInfo = {
-		'Limit':				{'http_method': 'GET'},
-		'Products':				{'http_method': 'GET'},
-		'ProductDetails':		{'http_method': 'GET'},
-		'Profile':				{'http_method': 'GET'},
-		'Quote':				{'http_method': 'GET'},
-		'ValidateCSR':			{'http_method': 'POST'},
-		'TestOrder':			{'http_method': 'POST'},
-		'Order':				{'http_method': 'POST'},
+		'Limit': {'http_method': 'GET'},
+		'Products': {'http_method': 'GET'},
+		'ProductDetails': {'http_method': 'GET'},
+		'Profile': {'http_method': 'GET'},
+		'Quote': {'http_method': 'GET'},
+		'ValidateCSR': {'http_method': 'POST'},
+		'TestOrder': {'http_method': 'POST'},
+		'Order': {'http_method': 'POST'},
 		'VulnerabiltyAssessment': {'http_method': 'POST'},
-		'AddUser':				{'http_method': 'POST'},
-		'GetUser':				{'http_method': 'GET', 'path_parameter': 'UserNameOrUserId'},
-		'UpdateUser':			{'http_method': 'POST', 'path_parameter': 'UserNameOrUserId'},
-		'DeleteUser':			{'http_method': 'DELETE', 'path_parameter': 'UserNameOrUserId'},
-		'CancelOrder':			{'http_method': 'DELETE', 'path_parameter': 'CertCenterOrderID'},
-		'GetCustomer':			{'http_method': 'GET', 'path_parameter': 'UserNameOrUserId'},
-		'GetCustomers':			{'http_method': 'GET'},
-		'Revoke':				{'http_method': 'DELETE', 'path_parameter': 'CertCenterOrderID'},
-		'UserAgreement':		{'http_method': 'GET'},
-		'ApproverList':			{'http_method': 'GET'},
-		'Orders':				{'http_method': 'GET'},
-		'ModifiedOrders':		{'http_method': 'GET'},
-		'GetOrder':				{'http_method': 'GET', 'path_parameter': 'CertCenterOrderID'},
-		'Reissue':				{'http_method': 'POST'},
-		'UpdateApproverEmail':	{'http_method': 'PUT', 'path_parameter': 'CertCenterOrderID', 'query_parameter': 'ApproverEmail'},
-		'ResendApproverEmail':	{'http_method': 'POST', 'path_parameter': 'CertCenterOrderID'},
-		'DNSData':				{'http_method': 'POST'},
-		'FileData':				{'http_method': 'POST'},
-		'ValidateName':			{'http_method': 'POST'}
+		'VulnerabiltyAssessmentRescan': {'http_method': 'GET', 'path_parameter': 'CertCenterOrderID'},
+		'AddUser': {'http_method': 'POST'},
+		'GetUser': {'http_method': 'GET', 'path_parameter': 'UserNameOrUserId'},
+		'UpdateUser': {'http_method': 'POST', 'path_parameter': 'UserNameOrUserId'},
+		'DeleteUser': {'http_method': 'DELETE', 'path_parameter': 'UserNameOrUserId'},
+		'CancelOrder': {'http_method': 'DELETE', 'path_parameter': 'CertCenterOrderID'},
+		'GetCustomer': {'http_method': 'GET', 'path_parameter': 'UserNameOrUserId'},
+		'GetCustomers': {'http_method': 'GET'},
+		'Revoke': {'http_method': 'DELETE', 'path_parameter': 'CertCenterOrderID'},
+		'UserAgreement': {'http_method': 'GET'},
+		'ApproverList':	{'http_method': 'GET'},
+		'Orders': {'http_method': 'GET'},
+		'ModifiedOrders': {'http_method': 'GET'},
+		'GetOrder': {'http_method': 'GET', 'path_parameter': 'CertCenterOrderID'},
+		'Reissue': {'http_method': 'POST'},
+		'UpdateApproverEmail': {'http_method': 'PUT', 'path_parameter': 'CertCenterOrderID', 'query_parameter': 'ApproverEmail'},
+		'ResendApproverEmail': {'http_method': 'POST', 'path_parameter': 'CertCenterOrderID'},
+		'DNSData': {'http_method': 'POST'},
+		'FileData': {'http_method': 'POST'},
+		'ValidateName': {'http_method': 'POST'}
 	}
 
 	def __init__(self,OutputBehavior='dict'):
