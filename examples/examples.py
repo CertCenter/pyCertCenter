@@ -3,8 +3,8 @@
 
 import CertCenter
 
-api = CertCenter.CertAPI(OutputBehavior='json')
-api.setBearer('XYZXYZXYZ.oauth2.certcenter.com')
+api = CertCenter.CertAPI(OutputBehavior='dict')
+api.setBearer('AValidToken.oauth2.certcenter.com')
 
 """ Fetching current account limitations
 """
@@ -314,3 +314,22 @@ api.setBearer('XYZXYZXYZ.oauth2.certcenter.com')
 # -----END CERTIFICATE-----""",
 # }
 # print api.Revoke(req=request)
+
+""" Get informations about your vouchers
+"""
+# print api.GetVouchers()
+
+""" Get informations about a particular vouchers
+"""
+# request = {
+# 	'VoucherCode': '0L8EVQ4WTNTH',
+# }
+# print api.GetVoucher(req=request)
+
+""" Allows you to invalidate a particular voucher
+"""
+# request = {
+# 	'VoucherCode': '0L8EVQ4WTNTH',
+# }
+# print api.DeleteVoucher(req=request)
+
