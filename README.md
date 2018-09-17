@@ -37,12 +37,12 @@ It's quite easy and a howto is already available:
 
 Please refer to the detailed REST API documentation:
 
-- <a target="_blank" href="https://developers.certcenter.com/rest-api-doc-en/">English version</a>
-- <a target="_blank" href="https://developers.certcenter.com/rest-api-doc-de/">German version</a>
+- <a target="_blank" href="https://api.certcenter.help/rest-api-doc-en/">English version</a>
+- <a target="_blank" href="https://api.certcenter.help/rest-api-doc-de/">German version</a>
 
 You may pass all required data as dict objects as demonstrated in this projects <a href="https://github.com/CertCenter/pyCertCenter/tree/master/example">example implementations</a>.
 
 
 # Documentation
 
-An extensive API and module documentation is available at https://developers.certcenter.com
+An extensive API and module documentation is available at https://api.certcenter.help
