@@ -40,7 +40,7 @@ Please refer to the detailed REST API documentation:
 - <a target="_blank" href="https://api.certcenter.help/rest-api-doc-en/">English version</a>
 - <a target="_blank" href="https://api.certcenter.help/rest-api-doc-de/">German version</a>
 
-You may pass all required data as dict objects as demonstrated in this projects <a href="https://github.com/CertCenter/pyCertCenter/tree/master/example">example implementations</a>.
+You may pass all required data as dict objects as demonstrated in this projects <a href="https://github.com/CertCenter/pyCertCenter/tree/master/examples">example implementations</a>.
 
 
 # Documentation
